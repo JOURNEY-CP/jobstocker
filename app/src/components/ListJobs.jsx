@@ -6,7 +6,6 @@ import ListItem from './ListItem';
 import './list-item.css'
 class ListJobs extends Component {
     render() {
-        console.log(this.props&&this.props.jobs&&Object.entries(this.props.jobs));
         return (
             <div>
                 <div className="list-jobs-all">
