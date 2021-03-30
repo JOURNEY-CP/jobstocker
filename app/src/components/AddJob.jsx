@@ -11,11 +11,16 @@ class AddJob extends Component {
     
         this.state = {
             name:"",
-            link:"",
+            link:"https://",
             deadline:"NA",
+            error:false
         }
     }
     handleChange=(event)=>{
+        if(event.target.id==="link"){
+            var re = /^https?:\/\/.*$/;
+            this.setState({error:!re.test(event.target.value)});
+        }
         this.setState({[event.target.id]:event.target.value});
     }
     onAddClick=()=>{
@@ -27,10 +32,15 @@ class AddJob extends Component {
             alert("Enter Proper Link of the Internship");
             return;
         }
+        const {name,link,deadline,error}=this.state;
+        if(error){
+            alert("Enter Proper Link of the Internship");
+            return;
+        }
         this.props&&
         this.props.setPage&&
         this.props.setPage("list")
-        this.props.addNewJob(this.state)
+        this.props.addNewJob({name,link,deadline})
     }
     render() {
         return (
@@ -48,7 +58,16 @@ class AddJob extends Component {
                 <br/><br/>
                 <TextField className="add-job-text-field" id="deadline" label="Deadline"  onChange={this.handleChange}/>
                 <br/><br/>
-                <TextField className="add-job-text-field" id="link" label="Link"  onChange={this.handleChange}/>
+                <TextField 
+                    type="url"  
+                    pattern="https://.*" 
+                    className="add-job-text-field" 
+                    id="link" label="Link" 
+                    value={this.state.link} 
+                    onChange={this.handleChange}
+                    helperText={this.state.error?"Invalid Format start with https://":"Start with https://"}
+                    error={this.state.error}
+                    />
                 <br/><br/>
                 <div className="fab-position">
                     <FloatingActionButton 
