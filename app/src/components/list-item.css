@@ -22,7 +22,7 @@
     overflow-wrap: break-word;
 }
 .fab-position{
-    position: absolute;
+    position: fixed;
     right: 10px;
     bottom:10px;
 }

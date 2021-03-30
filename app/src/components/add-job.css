@@ -21,3 +21,8 @@
     width: 80%;
     max-width: 400px;
 }
+.fab-position{
+    position: fixed;
+    right: 10px;
+    bottom:10px;
+}
