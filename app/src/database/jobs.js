@@ -1,4 +1,5 @@
 const addNewJob= (ref,job) =>{
+    console.log(ref('jobs'));
     ref('jobs').push(job)
 }
 const getAllJobs = (jobs) =>{
