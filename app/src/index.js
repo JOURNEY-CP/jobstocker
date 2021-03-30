@@ -6,7 +6,9 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-firebase'
 import firebase from 'firebase';
 import firebaseConfig from './firebaseConfig';
+import * as serviceWorker from './serviceWorker';
 const firebaseApp = firebase.initializeApp(firebaseConfig);
+
 ReactDOM.render(
   <Provider firebaseApp={firebaseApp}>
     <App />
@@ -14,7 +16,7 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-
+serviceWorker.register();
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

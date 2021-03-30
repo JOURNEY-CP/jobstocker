@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Job Stocker",
+  "name": "Journey's Job Stocker",
   "icons": [
     {
       "src": "favicon.ico",
