@@ -18,7 +18,6 @@ class App extends Component{
   }
   getComponent=()=>{
     const {currentPage}=this.state;
-    console.log(currentPage);
     if(currentPage==="list"){
       return <ListJobs setPage={this.setPage} />
     }

@@ -16,8 +16,7 @@ class AddJob extends Component {
         }
     }
     handleChange=(event)=>{
-        this.setState({[event.target.id]:event.target.value})
-        console.log(event.target.value);
+        this.setState({[event.target.id]:event.target.value});
     }
     onAddClick=()=>{
         if(this.state.name===""){
@@ -34,7 +33,6 @@ class AddJob extends Component {
         this.props.addNewJob(this.state)
     }
     render() {
-        console.log(this.props);
         return (
             <div>
                 <center>
