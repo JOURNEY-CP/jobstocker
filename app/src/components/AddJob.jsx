@@ -46,9 +46,9 @@ class AddJob extends Component {
                 <br/><br/>
                 <TextField className="add-job-text-field" id="name" label="Name" onChange={this.handleChange}/>
                 <br/><br/>
-                <TextField className="add-job-text-field" id="deadline" label="Deadline" />
+                <TextField className="add-job-text-field" id="deadline" label="Deadline"  onChange={this.handleChange}/>
                 <br/><br/>
-                <TextField className="add-job-text-field" id="link" label="Link" />
+                <TextField className="add-job-text-field" id="link" label="Link"  onChange={this.handleChange}/>
                 <br/><br/>
                 <div className="fab-position">
                     <FloatingActionButton 
