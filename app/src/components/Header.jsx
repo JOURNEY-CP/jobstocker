@@ -33,7 +33,7 @@ const Header=()=>{
             Job Stocker
           </Typography>
           <IconButton
-            href="mailto:journeynitdgp@google.com"
+            href="mailto:journeynitdgp@gmail.com"
             edge="start" 
             className={classes.menuButton} 
             color="inherit" 
