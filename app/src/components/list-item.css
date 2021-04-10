@@ -8,9 +8,21 @@
 .list-item-paper{
     position: relative;
     min-height: 50px;
-    min-width: 250px;
+    min-width: 300px;
     width: 25%;
     margin:10px;
+}
+.list-item-main{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+.list-item-avatar{
+    margin:10px;
+    background-color: #4056b5 !important;
+}
+.list-item-core{
+    width: calc(100% - 60px);
 }
 .list-item-link{
     color: black;

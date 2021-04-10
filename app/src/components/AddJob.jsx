@@ -13,6 +13,7 @@ class AddJob extends Component {
             name:"",
             link:"https://",
             deadline:"NA",
+            createdBy:"",
             error:false
         }
     }
@@ -24,15 +25,19 @@ class AddJob extends Component {
         this.setState({[event.target.id]:event.target.value});
     }
     onAddClick=()=>{
-        if(this.state.name===""){
+        const {createdBy,name,link,deadline,error}=this.state;
+        if(createdBy===""){
+            alert("Enter Your Name");
+            return;
+        }
+        if(name===""){
             alert("Enter Proper Name of the company");
             return;
         }
-        if(this.state.link===""){
+        if(link===""){
             alert("Enter Proper Link of the Internship");
             return;
         }
-        const {name,link,deadline,error}=this.state;
         if(error){
             alert("Enter Proper Link of the Internship");
             return;
@@ -40,7 +45,7 @@ class AddJob extends Component {
         this.props&&
         this.props.setPage&&
         this.props.setPage("list")
-        this.props.addNewJob({name,link,deadline})
+        this.props.addNewJob({createdBy,name,link,deadline})
     }
     render() {
         return (
@@ -54,7 +59,9 @@ class AddJob extends Component {
                 </center>
                 <div></div>
                 <br/><br/>
-                <TextField className="add-job-text-field" id="name" label="Name" onChange={this.handleChange}/>
+                <TextField className="add-job-text-field" id="createdBy" label="Your Name" onChange={this.handleChange}/>
+                <br/><br/>
+                <TextField className="add-job-text-field" id="name" label="Company Name" onChange={this.handleChange}/>
                 <br/><br/>
                 <TextField className="add-job-text-field" id="deadline" label="Deadline"  onChange={this.handleChange}/>
                 <br/><br/>
