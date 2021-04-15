@@ -12,7 +12,10 @@ import FeedbackIcon from '@material-ui/icons/Feedback';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import CodeIcon from '@material-ui/icons/Code';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
+import BugReportIcon from '@material-ui/icons/BugReport';
 import MenuIcon from '@material-ui/icons/Menu';
+import GithubIcon from '@material-ui/icons/GitHub';
 import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles({
@@ -53,10 +56,22 @@ export default function LeftDrawer() {
       <List>
       <h1 style={{marginLeft:"15px",color:"#3f51b5"}}>JobStocker</h1>
       <Divider/>
-      <a href="https://github.com/JOURNEY-CP/jobstocker/issues/new" target="blank" style={{textDecoration:"none",color:"inherit"}}>
+      <a href="https://github.com/JOURNEY-CP/jobstocker" target="blank" style={{textDecoration:"none",color:"inherit"}}>
         <ListItem>
-            <ListItemIcon><AddCircleIcon /></ListItemIcon>
-            <ListItemText primary={"Issues (or) want Any new feuture to add"} />
+            <ListItemIcon><GithubIcon /></ListItemIcon>
+            <ListItemText primary={"View Source"} />
+        </ListItem>
+        </a>
+      <a href="https://github.com/JOURNEY-CP/jobstocker/issues" target="blank" style={{textDecoration:"none",color:"inherit"}}>
+        <ListItem>
+            <ListItemIcon><BugReportIcon /></ListItemIcon>
+            <ListItemText primary={"Issues"} />
+        </ListItem>
+        </a>
+         <a href="https://github.com/JOURNEY-CP/jobstocker/discussions" target="blank" style={{textDecoration:"none",color:"inherit"}}>
+        <ListItem>
+            <ListItemIcon><QuestionAnswerIcon /></ListItemIcon>
+            <ListItemText primary={"Want to discuss Anything or add new feuture?"} />
         </ListItem>
         </a>
       <a href="mailto:journeynitdgp@gmail.com" target="blank" style={{textDecoration:"none",color:"inherit"}}>
