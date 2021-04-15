@@ -11,7 +11,6 @@ import MenuBookIcon from '@material-ui/icons/MenuBook';
 import FeedbackIcon from '@material-ui/icons/Feedback';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import CodeIcon from '@material-ui/icons/Code';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import BugReportIcon from '@material-ui/icons/BugReport';
 import MenuIcon from '@material-ui/icons/Menu';
