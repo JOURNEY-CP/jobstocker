@@ -22,6 +22,7 @@ class ListJobs extends Component {
                             link={job.link}
                             createdAt={(job.createdAt && this.getDateText(job.createdAt))||"NOT SPECIFIED"}
                             createdBy={job.createdBy||"Journey"}
+                            photo={job.photo}
                         />
                     ))
                 }

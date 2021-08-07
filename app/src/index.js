@@ -11,7 +11,7 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 ReactDOM.render(
   <Provider firebaseApp={firebaseApp}>
-    <App />
+    <App firebaseApp={firebaseApp} />
   </Provider>,
   document.getElementById('root')
 );

@@ -5,12 +5,16 @@ import Avatar from '@material-ui/core/Avatar';
 
 class ListItem extends React.Component{
     render(){
-        const {name,deadline,link,createdAt,createdBy}=this.props;
+        const {name,deadline,link,createdAt,createdBy,photo}=this.props;
         return (
             <Paper elevation={10} className="list-item-paper">
             <a className="list-item-link" href={link}>
                 <div className="list-item-main">
-                    <Avatar className="list-item-avatar">{createdBy[0]}</Avatar>
+                    {
+                        photo?
+                             <Avatar className="list-item-avatar" src={photo} alt={createdBy[0]} />: 
+                             <Avatar className="list-item-avatar">{createdBy[0]}</Avatar>
+                    }
                     <div className="list-item-core">
                         <div className="list-item-name">{name}</div>
                         <div className="list-item-deadline">Deadline : {deadline}</div>
