@@ -1,11 +1,14 @@
 import React from 'react';
+import { connect } from 'react-firebase'
 import Paper from '@material-ui/core/Paper';
 import './list-item.css';
 import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import {updateJobStatus} from '../database/jobs';
 
 class ListItem extends React.Component{
     render(){
-        const {name,deadline,link,createdAt,createdBy,photo}=this.props;
+        const {name,deadline,link,createdAt,createdBy,photo,id}=this.props;
         return (
             <Paper elevation={10} className="list-item-paper">
             <a className="list-item-link" href={link}>
@@ -22,9 +25,35 @@ class ListItem extends React.Component{
                     </div>
                 </div>
             </a>              
+            <div className="list-item-buttons">    
+                <div className="list-item-button">
+                <Button  
+                    className="list-item-button"  
+                    variant="contained" 
+                    color="secondary" 
+                    onClick={()=>this.props.updateJobStatus(id,"CANCELLED")}
+                >
+                    Reject
+                </Button>
+                </div>
+                <div className="list-item-button">
+                <Button  
+                    className="list-item-button"  
+                    variant="contained" 
+                    color="primary" 
+                    onClick={()=>this.props.updateJobStatus(id,"APPLIED")}
+                >
+                    Applied
+                </Button>
+                </div>
+            </div>
             </Paper>
         );
     }
 }
 
-export default ListItem;
+const mapFirebaseToProps = (props, ref) => ({
+    updateJobStatus: (jobId,status) => updateJobStatus(ref,localStorage.getItem('uid'),jobId,status)
+})
+
+export default connect(mapFirebaseToProps)(ListItem);

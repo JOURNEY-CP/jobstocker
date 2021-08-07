@@ -18,23 +18,25 @@ class App extends Component{
        user:localStorage.getItem('loggedin')==="true"?{
         name:localStorage.getItem('name'),
         email:localStorage.getItem('email'),
-        photo:localStorage.getItem('photo')
+        photo:localStorage.getItem('photo'),
+        uid:localStorage.getItem('uid')
        }:null,
     //    isSignedIn:this.props.firebaseApp.auth().currentUser?true:false
             isSignedIn:localStorage.getItem('loggedin')==="true"?true:false
     }
 }
 signInSuccess=User=>{
-    console.log(User);
     const user={
         name:User.user.displayName,
         email:User.user.email,
-        photo:User.user.photoURL
+        photo:User.user.photoURL,
+        uid:User.user.uid
     }
     localStorage.setItem('name',user.name);
     localStorage.setItem('email',user.email);
     localStorage.setItem('photo',user.photo);
     localStorage.setItem('loggedin',true);
+    localStorage.setItem('uid',user.uid);
     this.setState({user,isSignedIn:true});
 }
 setPage=name=>{
@@ -43,7 +45,6 @@ setPage=name=>{
 getComponent=()=>{
     const {currentPage,isSignedIn,user}=this.state;
     if(!isSignedIn){ 
-        console.log("hi");
         return <Auth firebaseApp={this.props.firebaseApp} signInSuccess={this.signInSuccess}/>;
     }
     if(currentPage==="list"){
