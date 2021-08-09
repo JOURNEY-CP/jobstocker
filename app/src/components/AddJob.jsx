@@ -4,7 +4,13 @@ import {addNewJob} from '../database/jobs';
 import FloatingActionButton from './FloatingActionButton';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
-import "./add-job.css"
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+import "./add-job.css";
+
 class AddJob extends Component {
     constructor(props) {
         super(props)
@@ -13,8 +19,10 @@ class AddJob extends Component {
             name:"",
             link:"https://",
             deadline:"NA",
-            createdBy:"",
-            error:false
+            // createdBy:"",
+            error:false,
+            type:"FTE",
+            description:"No Special instructions/Comments"
         }
     }
     handleChange=(event)=>{
@@ -22,14 +30,15 @@ class AddJob extends Component {
             var re = /^https?:\/\/.*$/;
             this.setState({error:!re.test(event.target.value)});
         }
-        this.setState({[event.target.id]:event.target.value});
+        if(event.target.name==="type"){
+            this.setState({type:event.target.value});
+        }
+        else{
+            this.setState({[event.target.id]:event.target.value});
+        }
     }
     onAddClick=()=>{
-        const {createdBy,name,link,deadline,error}=this.state;
-        if(createdBy===""){
-            alert("Enter Your Name");
-            return;
-        }
+        const { name,link,deadline,error,type}=this.state;
         if(name===""){
             alert("Enter Proper Name of the company");
             return;
@@ -45,7 +54,17 @@ class AddJob extends Component {
         this.props&&
         this.props.setPage&&
         this.props.setPage("list")
-        this.props.addNewJob({createdBy,name,link,deadline})
+        this.props.addNewJob({
+            createdBy:this.props.user?this.props.user.name:"ADMIN",
+            name,link,deadline,
+            photo:this.props.user?this.props.user.photo:null,
+            email:this.props.user?this.props.user.email:"journeynitdgp@gmail.com",
+            views:0,
+            applied:0,
+            rejected:0,
+            pending:0,
+            type
+        })
     }
     render() {
         return (
@@ -59,11 +78,13 @@ class AddJob extends Component {
                 </center>
                 <div></div>
                 <br/><br/>
-                <TextField className="add-job-text-field" id="createdBy" label="Your Name" onChange={this.handleChange}/>
-                <br/><br/>
+                {/* <TextField className="add-job-text-field" id="createdBy" label="Your Name" onChange={this.handleChange}/>
+                <br/><br/> */}
                 <TextField className="add-job-text-field" id="name" label="Company Name" onChange={this.handleChange}/>
                 <br/><br/>
                 <TextField className="add-job-text-field" id="deadline" label="Deadline"  onChange={this.handleChange}/>
+                <br/><br/>
+                <TextField className="add-job-text-field" id="description" label="Description"  onChange={this.handleChange}/>
                 <br/><br/>
                 <TextField 
                     type="url"  
@@ -76,6 +97,18 @@ class AddJob extends Component {
                     error={this.state.error}
                     />
                 <br/><br/>
+                <FormControl component="fieldset">
+                <FormLabel component="legend">Type</FormLabel>
+                <RadioGroup aria-label="type" name="type" id="type" value={this.state.type} onChange={this.handleChange}>
+                    <FormControlLabel value="FTE" id="type" control={<Radio />} label="Full Time" />
+                    <FormControlLabel value="INTERN" id="type" control={<Radio />} label="Intern" />
+                </RadioGroup>
+                </FormControl>
+                <br/>
+                <br/>  <br/>
+                <br/>  <br/>
+                <br/>  <br/>
+                <br/>
                 <div className="fab-position">
                     <FloatingActionButton 
                         onClick={this.onAddClick} 

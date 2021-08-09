@@ -3,29 +3,58 @@ import './App.css';
 import AddJob from './components/AddJob';
 import ListJobs from './components/ListJobs';
 import Header from './components/Header';
-
+import Auth from './components/Auth';
 
 class App extends Component{
   constructor(props) {
     super(props)
-  
     this.state = {
-       currentPage:"list"
+       currentPage:"list",
+    //    user:this.props.firebaseApp.auth().currentUser?{
+    //     name:this.props.firebaseApp.auth().currentUser.displayName,
+    //     email:this.props.firebaseApp.auth().currentUser.email,
+    //     photo:this.props.firebaseApp.auth().currentUser.photoURL
+    //    }:null,
+       user:localStorage.getItem('loggedin')==="true"?{
+        name:localStorage.getItem('name'),
+        email:localStorage.getItem('email'),
+        photo:localStorage.getItem('photo'),
+        uid:localStorage.getItem('uid')
+       }:null,
+    //    isSignedIn:this.props.firebaseApp.auth().currentUser?true:false
+            isSignedIn:localStorage.getItem('loggedin')==="true"?true:false
     }
-  }
-  setPage=name=>{
+}
+signInSuccess=User=>{
+    const user={
+        name:User.user.displayName,
+        email:User.user.email,
+        photo:User.user.photoURL,
+        uid:User.user.uid
+    }
+    localStorage.setItem('name',user.name);
+    localStorage.setItem('email',user.email);
+    localStorage.setItem('photo',user.photo);
+    localStorage.setItem('loggedin',true);
+    localStorage.setItem('uid',user.uid);
+    this.setState({user,isSignedIn:true});
+}
+setPage=name=>{
     this.setState({currentPage:name});
-  }
-  getComponent=()=>{
-    const {currentPage}=this.state;
+}
+getComponent=()=>{
+    const {currentPage,isSignedIn,user}=this.state;
+    if(!isSignedIn){ 
+        return <Auth firebaseApp={this.props.firebaseApp} signInSuccess={this.signInSuccess}/>;
+    }
     if(currentPage==="list"){
-      return <ListJobs setPage={this.setPage} />
+        return <ListJobs setPage={this.setPage} />
     }
     else if(currentPage==="add"){
-      return <AddJob setPage={this.setPage} />
+    return <AddJob user={user} setPage={this.setPage} />
     }
-  }
-  render(){
+}
+render(){
     return (
       <div className="App">
         <Header />

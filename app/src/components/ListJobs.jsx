@@ -1,29 +1,124 @@
 import React, { Component } from 'react'
 import { connect } from 'react-firebase'
-import { getAllJobs } from '../database/jobs';
+import { getAllJobs,getStatus } from '../database/jobs';
 import FloatingActionButton from './FloatingActionButton';
 import ListItem from './ListItem';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import './list-item.css'
 class ListJobs extends Component {
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+             type:"FTE",
+             status:"NEW"
+        }
+    }
+    
     getDateText=(dt)=>{
         const currDate=new Date(dt);
         return currDate.toDateString();
     }
+    handleChange = event => {
+        this.setState({[event.target.name]: event.target.value});
+    };
+    filters=()=>(
+        <div className="list-jobs-filter">
+            <Select
+            variant="outlined"
+            className="list-jobs-filter-select"
+            labelId="type"
+            id="type"
+            name="type"
+            value={this.state.type}
+            onChange={this.handleChange}
+            >
+            <MenuItem value="ALL">All</MenuItem>
+            <MenuItem value="FTE">FullTime</MenuItem>
+            <MenuItem value="INTERN">Intern</MenuItem>
+            <MenuItem value="OLD">Old</MenuItem>
+            </Select>
+
+            <Select
+            variant="outlined"
+            className="list-jobs-filter-select"
+            width="40%"
+            labelId="status"
+            id="status"
+            name="status"
+            value={this.state.status}
+            onChange={this.handleChange}
+            >
+            <MenuItem value="ALL">All</MenuItem>
+            <MenuItem value="NEW">New</MenuItem>
+            <MenuItem value="APPLIED">Applied</MenuItem>
+            <MenuItem value="CANCELLED">Cancelled</MenuItem>
+            </Select>
+        </div>
+    )
+    filterType=([id, job])=>{
+        if(this.state.type==="ALL"){
+            return true;
+        }
+        if(this.state.type==="FTE"){
+            if(job.type==="FTE"){
+                return true;
+            }
+        }
+        if(this.state.type==="INTERN"){
+            if(job.type==="INTERN"){
+                return true;
+            }
+        }
+        if(this.state.type==="OLD"){
+            if(job.type!=="FTE" && job.type!=="INTERN"){
+                return true;
+            }
+        }
+        return false;
+    }
+    filterStatus=([id, job])=>{
+        const {status}=this.props;
+        if(!status)return true;
+        if(this.state.status==="ALL"){
+            return true;
+        }
+        if(this.state.status==="NEW"){
+            if(status[id]===undefined){
+                return true;
+            }
+        }
+        return this.state.status===status[id];
+    }
     render() {
         return (
             <div>
+                <this.filters/>
                 <div className="list-jobs-all">
                 {
-                    this.props&&this.props.jobs&&Object.entries(this.props.jobs).reverse().map(([id, job]) => (
+                    this.props&&this.props.jobs&&
+                    Object.entries(this.props.jobs)
+                        .filter(this.filterType)
+                        .filter(this.filterStatus)
+                        .reverse().map(([id, job]) => (
                         <ListItem 
                             key={id} 
+                            id={id}
                             name={job.name} 
                             deadline={job.deadline} 
                             link={job.link}
                             createdAt={(job.createdAt && this.getDateText(job.createdAt))||"NOT SPECIFIED"}
                             createdBy={job.createdBy||"Journey"}
+                            photo={job.photo}
                         />
                     ))
+                }
+                {
+                    (this.props&&this.props.jobs&&
+                    Object.entries(this.props.jobs)
+                        .filter(this.filterType)
+                        .filter(this.filterStatus).length===0)&&<h1>No  jobs found with the specified filters.Change Filters or Just Relax.</h1>
                 }
                 </div>
                 <div className="fab-position">
@@ -41,7 +136,8 @@ class ListJobs extends Component {
     }
 }
 const mapFirebaseToProps = (props, ref) => ({
-    jobs: getAllJobs('jobs')
+    jobs: getAllJobs('jobs'),
+    status: getStatus(localStorage.getItem('uid'))
 })
 
 export default connect(mapFirebaseToProps)(ListJobs);
