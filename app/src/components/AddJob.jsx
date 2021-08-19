@@ -38,7 +38,7 @@ class AddJob extends Component {
         }
     }
     onAddClick=()=>{
-        const { name,link,deadline,error,type}=this.state;
+        const { name,link,deadline,error,type,description}=this.state;
         if(name===""){
             alert("Enter Proper Name of the company");
             return;
@@ -56,7 +56,7 @@ class AddJob extends Component {
         this.props.setPage("list")
         this.props.addNewJob({
             createdBy:this.props.user?this.props.user.name:"ADMIN",
-            name,link,deadline,
+            name,link,deadline,description,
             photo:this.props.user?this.props.user.photo:null,
             email:this.props.user?this.props.user.email:"journeynitdgp@gmail.com",
             views:0,

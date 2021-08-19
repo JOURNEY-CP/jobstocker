@@ -7,9 +7,12 @@
 }
 .list-item-paper{
     position: relative;
-    min-height: 50px;
-    min-width: 300px;
-    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 150px;
+    min-width: 450px;
+    width: 30%;
     margin:10px;
 }
 .list-item-main{
@@ -22,7 +25,9 @@
     background-color: #4056b5 !important;
 }
 .list-item-core{
-    width: calc(100% - 60px);
+    width: 100%;
+    padding: 10px;
+    text-align: left !important;
 }
 .list-item-link{
     color: black;
@@ -33,11 +38,30 @@
     text-decoration: none;
     overflow-wrap: break-word;
 }
+.list-item-created{
+    position: absolute;
+    height: 30px;
+    line-height: 30px;
+    padding: 0px 10px;
+    margin:10px 10px 0 0;
+    right: 0px;
+    top:0px;
+    border-radius: 15px;
+    background-color: #ffeb3b;
+}
+
+
+.list-item-photo-buttons{
+    position: relative;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 .list-item-buttons{
     position: relative;
     display:flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    /* justify-content: flex-end; */
     align-items: center;
 }
 .list-item-button{
