@@ -17,8 +17,25 @@ class ListJobs extends Component {
     }
     
     getDateText=(dt)=>{
+        const today=new Date();
         const currDate=new Date(dt);
-        return currDate.toDateString();
+        var duration=Math.floor((today-currDate)/1000);
+        if(duration<=60)return "now";
+        if(duration<=3600){
+            duration=Math.ceil(duration/3600);
+            return duration+" Min ago";
+        }
+        if(duration<=7200)return "1 Hour ago"
+        if(duration<=3600*24){
+            duration=Math.ceil(duration/3600);
+            return duration+" Hours ago";
+        }
+        if(duration<=3600*24*7){
+            duration=Math.ceil(duration/(3600*24));
+            return duration+" Days ago";
+        }
+        // return currDate.toDateString();0
+        return currDate.getDate()+"/"+(currDate.getMonth()+1)+"/"+currDate.getFullYear();
     }
     handleChange = event => {
         this.setState({[event.target.name]: event.target.value});
@@ -111,6 +128,7 @@ class ListJobs extends Component {
                             createdAt={(job.createdAt && this.getDateText(job.createdAt))||"NOT SPECIFIED"}
                             createdBy={job.createdBy||"Journey"}
                             photo={job.photo}
+                            description={job.description}
                         />
                     ))
                 }

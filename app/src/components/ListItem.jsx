@@ -4,28 +4,32 @@ import Paper from '@material-ui/core/Paper';
 import './list-item.css';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import ChatIcon from '@material-ui/icons/Chat';
 import {updateJobStatus} from '../database/jobs';
 
 class ListItem extends React.Component{
     render(){
-        const {name,deadline,link,createdAt,createdBy,photo,id}=this.props;
+        const {name,deadline,link,createdAt,createdBy,photo,id,description}=this.props;
         return (
             <Paper elevation={10} className="list-item-paper">
             <a className="list-item-link" href={link}>
                 <div className="list-item-main">
-                    {
+                    <div className="list-item-core">                    
+                        <div className="list-item-created">{createdAt}</div>
+                        <div className="list-item-name">{name}</div>
+                        {deadline.toUpperCase()!=="NA" &&<div className="list-item-deadline">Deadline : {deadline}</div>}
+                        {description&&<div className="list-item-deadline"> {description}</div>}
+                    </div>
+                </div>
+            </a>      
+            <div className="list-item-photo-buttons">
+            {
                         photo?
                              <Avatar className="list-item-avatar" src={photo} alt={createdBy[0]} />: 
                              <Avatar className="list-item-avatar">{createdBy[0]}</Avatar>
-                    }
-                    <div className="list-item-core">
-                        <div className="list-item-name">{name}</div>
-                        <div className="list-item-deadline">Deadline : {deadline}</div>
-                        <div className="list-item-deadline">Added: {createdAt}</div>
-                    </div>
-                </div>
-            </a>              
-            <div className="list-item-buttons">    
+            } 
+            <div className="list-item-buttons">  
+                <ChatIcon  fontSize="large" className="list-item-chat-button" onClick={()=>alert("hi")}/>
                 <div className="list-item-button">
                 <Button  
                     className="list-item-button"  
@@ -47,6 +51,7 @@ class ListItem extends React.Component{
                 </Button>
                 </div>
             </div>
+            </div>     
             </Paper>
         );
     }
