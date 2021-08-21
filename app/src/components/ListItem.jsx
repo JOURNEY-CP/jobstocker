@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import './list-item.css';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import ChatIcon from '@material-ui/icons/Chat';
 import {updateJobStatus} from '../database/jobs';
 
 class ListItem extends React.Component{
@@ -16,7 +17,7 @@ class ListItem extends React.Component{
                     <div className="list-item-core">                    
                         <div className="list-item-created">{createdAt}</div>
                         <div className="list-item-name">{name}</div>
-                        {deadline!=="NA"&&<div className="list-item-deadline">Deadline : {deadline}</div>}
+                        {deadline.toUpperCase()!=="NA" &&<div className="list-item-deadline">Deadline : {deadline}</div>}
                         {description&&<div className="list-item-deadline"> {description}</div>}
                     </div>
                 </div>
@@ -26,8 +27,9 @@ class ListItem extends React.Component{
                         photo?
                              <Avatar className="list-item-avatar" src={photo} alt={createdBy[0]} />: 
                              <Avatar className="list-item-avatar">{createdBy[0]}</Avatar>
-            }   
-            <div className="list-item-buttons">    
+            } 
+            <div className="list-item-buttons">  
+                <ChatIcon  fontSize="large" className="list-item-chat-button" onClick={()=>alert("hi")}/>
                 <div className="list-item-button">
                 <Button  
                     className="list-item-button"  

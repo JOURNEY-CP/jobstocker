@@ -34,7 +34,8 @@ class ListJobs extends Component {
             duration=Math.ceil(duration/(3600*24));
             return duration+" Days ago";
         }
-        return currDate.toDateString();
+        // return currDate.toDateString();0
+        return currDate.getDate()+"/"+(currDate.getMonth()+1)+"/"+currDate.getFullYear();
     }
     handleChange = event => {
         this.setState({[event.target.name]: event.target.value});
