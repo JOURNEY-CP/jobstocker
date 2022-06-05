@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@fluent/react": "^0.14.1"
+  }
+}
